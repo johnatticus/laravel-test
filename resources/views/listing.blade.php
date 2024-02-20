@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 <h2>
         Title: {{$listing['title']}}
     </h2>
@@ -14,3 +18,5 @@
     <p>Website: {{$listing['website']}}</p>
     <br><br>
     <a href="/">Back to Listings</a>
+
+    @endsection
