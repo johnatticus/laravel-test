@@ -28,5 +28,8 @@ use App\Http\Controllers\ListingController;
 // returns all listings
 Route::get('/', [ListingController::class, 'index']);
 
+// show create listing form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
 // returns a single listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
