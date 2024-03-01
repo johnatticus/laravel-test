@@ -50,4 +50,35 @@ class ListingController extends Controller
         // redirect to the homepage
         return redirect('/')->with('message', 'Listing created successfully!');
     }
+
+    // show edit form
+    public function edit(Listing $listing) {
+        return view('listings.edit', [
+            'listing' => $listing
+        ]);
+    }
+
+    // update listing
+    public function update(Request $request, Listing $listing) {
+        // validate the form
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required', Rule::unique('listings', 'company')->ignore($listing->id)],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->logo->store('logos', 'public');
+        }
+
+        // update the listing
+        $listing->update($formFields);
+
+        // redirect to the homepage
+        return redirect('/')->with('message', 'Listing updated successfully!');
+    }
 }
