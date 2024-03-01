@@ -17,6 +17,10 @@
 
 
     </div>
+
+    <div class="mt-6 p-4">
+        {{ $listings->links() }}
+    </div>
 </x-layout>
 
 <!-- Below is a simple view that will display a list of listings. It will receive a $heading and $listings variable from the controller. The $heading variable will be used to display the title of the page, and the $listings variable will be used to display the list of listings. -->
