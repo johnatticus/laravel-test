@@ -81,4 +81,13 @@ class ListingController extends Controller
         // redirect to the homepage
         return redirect('/')->with('message', 'Listing updated successfully!');
     }
+
+    // delete listing
+    public function destroy(Listing $listing) {
+        // delete the listing
+        $listing->delete();
+
+        // redirect to the homepage
+        return redirect('/')->with('message', 'Listing deleted successfully!');
+    }
 }
