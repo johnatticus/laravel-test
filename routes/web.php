@@ -53,6 +53,12 @@ Route::post('/users', [UserController::class, 'store']);
 // log out
 Route::post('/logout', [UserController::class, 'logout']);
 
+// log in form
+Route::get('/login', [UserController::class, 'login']);
+
+// log in user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
 
 
 // returns a single listing
