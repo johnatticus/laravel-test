@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
-use App\Http\Controllers\ListingController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,8 +12,8 @@ use App\Http\Controllers\UserController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -26,40 +26,41 @@ use App\Http\Controllers\UserController;
 // update - Update listing
 // destroy - Delete listing  
 
-// returns all listings
+// All Listings
 Route::get('/', [ListingController::class, 'index']);
 
-// show create listing form
-Route::get('/listings/create', [ListingController::class, 'create']);
+// Show Create Form
+Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
-// store new listing
-Route::post('/listings', [ListingController::class, 'store']);
+// Store Listing Data
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
-// show edit form
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+// Show Edit Form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
-// update listing
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+// Update Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
-// delete listing
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+// Delete Listing
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
-// show register form
-Route::get('/register', [UserController::class, 'create']);
+// Manage Listings
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
 
-// create new user
+// Single Listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+// Show Register/Create Form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+
+// Create New User
 Route::post('/users', [UserController::class, 'store']);
 
-// log out
-Route::post('/logout', [UserController::class, 'logout']);
+// Log User Out
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
-// log in form
-Route::get('/login', [UserController::class, 'login']);
+// Show Login Form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
-// log in user
+// Log In User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
-
-
-
-// returns a single listing
-Route::get('/listings/{listing}', [ListingController::class, 'show']);
